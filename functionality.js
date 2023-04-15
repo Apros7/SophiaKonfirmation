@@ -8,19 +8,23 @@ const celebrationMother = new Audio("celebrationMother.m4a")
 
 const title = document.getElementById("Question");
 const nextQuestionButton = document.getElementById("nextQuestion")
+const song = new Audio("ChrisBrownForever.mp3");
+
+const timerButton = document.getElementById("buttonTimer");
+const timerLabel = document.getElementById("timerLabel");
 
 const questions = [
     "Hvad er Sophias yndlingsfag i skolen?",
     "Hvad er Sophias yndlingscomputerspil?",
-    "Hvilken farve ville Sophia male sin bil, hvis hun havde en?",
-    "Foretrækker Sophia at se film eller serier?",
-    "Hvilket land vil Sophia helst besøge?",
-    "Hvis Sophia skulle have en superkraft, hvad ville den så være?",
-    "Hvilken kendt person ville Sophia ønske at møde?",
-    "Hvad er Sophias yndlingsmusikgenre?",
-    "Hvad er Sophias yndlingsbog?",
-    "Hvilken sport finder Sophia mest interessant?",
-    "Hvad er Sophias livret?"
+    // "Hvilken farve ville Sophia male sin bil, hvis hun havde en?",
+    // "Hvilket land vil Sophia helst besøge?",
+    // "Hvis Sophia skulle have en superkraft, hvad ville den så være?",
+    // "Hvilken kendt person ville Sophia helst ønske at møde?",
+    // "Hvad er Sophias livret?",
+    // "Er Sophia Ravenclaw, Slytherin, Hufflepuff eller Gryffindor?",
+    // "Hvad er Sophias yndlingsrestaurant?",
+    // "Hvis Sophia kunne have en hvilken som helst karriere udover medicin, hvad ville hun så vælge?",
+    // "Hvilke 3 ting ville Sophia tage med på en øde ø?"
 ]
 
 let scoreFather = 0;
@@ -50,19 +54,43 @@ buttonMother.addEventListener("click", ( ) => {
     celebrationMother.currentTime = 0;
 })
 
-nextQuestionButton.addEventListener("click", () => {
+async function setCookies() {
+    return new Promise((resolve, reject) => {
+        document.cookie = "scoreMother=" + scoreMother + ";path=/";
+        document.cookie = "scoreFather=" + scoreFather + ";path=/";
+        resolve();
+    });
+}
+
+nextQuestionButton.addEventListener("click", async () => {
     nextQuestionButton.style.visibility = "hidden";
     questionIndex++;
-    if (questionIndex > questions.length) {
-        celebration()
+    timerButton.style.visibility = "visible";
+    if (questionIndex > questions.length - 1) {
+        await setCookies();
+        location.href = "celebration.html";
     } else {
         title.textContent = questions[questionIndex];
     }
 })
 
+timerButton.addEventListener("click", () => {
+    let countdown = 20;
+    song.play();
+    timerButton.style.visibility = "hidden";
+    timerLabel.textContent = countdown;
+    timerLabel.style.visibility = "visible";
 
-// needs to be done
-function celebration() {
-    null
-}
+    let countdownInterval = setInterval(() => {
+        countdown--; // Decrement the countdown value by 1
+        timerLabel.textContent = countdown; // Update the countdown label with the new value
+
+        if (countdown === 0) { // When the countdown reaches 0
+        clearInterval(countdownInterval); // Stop the countdown interval
+        timerLabel.style.visibility = "hidden"; // Hide the countdown label
+        song.pause(); // Stop the song
+        }
+    }, 1000); // Run the countdown every 1 second (1000 milliseconds)
+
+})
 

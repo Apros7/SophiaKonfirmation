@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Winner Celebration!</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		body {
+			background-color: rgb(46, 46, 46);
+			color: white;
+			font-family: Arial, sans-serif;
+			text-align: center;
+		}
+
+		h1 {
+			font-size: 80px;
+			margin-top: 50px;
+		}
+        img {
+            margin-top: 20px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center center;
+            margin-bottom: 16px;
+            visibility: hidden;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f0f;
+            border-radius: 50%;
+            animation: confetti 1s ease-out;
+        }
+
+        @keyframes confetti {
+            0% {
+            transform: translate(0, 0);
+            opacity: 1;
+            }
+            100% {
+            transform: translate(
+                calc(100vw * var(--random-x)),
+                calc(100vh * var(--random-y))
+            );
+            opacity: 0;
+            }
+        }
+	</style>
+</head>
+<body>
+	<h1>VINDER!</h1>
+    <img src="father.jpeg" id="picture">
+    <div id="confetti-container"></div>
+</body>
+
+<script src="celebration.js"></script>
