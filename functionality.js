@@ -54,9 +54,15 @@ nextQuestionButton.addEventListener("click", () => {
     nextQuestionButton.style.visibility = "hidden";
     questionIndex++;
     if (questionIndex > questions.length) {
-        console.log(questionIndex)
+        celebration()
     } else {
         title.textContent = questions[questionIndex];
     }
 })
+
+
+// needs to be done
+function celebration() {
+    null
+}
 
